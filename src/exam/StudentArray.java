@@ -14,7 +14,7 @@ public class StudentArray {
 	public static void main(String[] args) {
 		Dog[] dogs = new Dog[10];
 		for(int i=0;i<10;i++) {
-			
+			  
 		}
 		
 	}
