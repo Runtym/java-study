@@ -1,6 +1,6 @@
 package syntax;
 
-public class ClassExam {
+public class ClassExam10 {
 	int a = 1;
 	char c = '1';
 	String s = "1";
@@ -11,9 +11,9 @@ public class ClassExam {
 	
 	public static void main(String[] args) {
 		int a = 1;
-		ClassExam ce = new ClassExam();
+		ClassExam10 ce = new ClassExam10();
 		ce.a = 3;
-		ce = new ClassExam();
+		ce = new ClassExam10();
 		System.out.println(ce.a);
 		
 	}

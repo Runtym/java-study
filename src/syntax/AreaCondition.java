@@ -1,7 +1,6 @@
 package syntax;
 
 public class AreaCondition {
-
 	public static void main(String[] args) {
 		int i = 2;
 		
