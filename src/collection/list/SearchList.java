@@ -9,7 +9,6 @@ public class SearchList {
 		for(int i=1;i<=5;i++) {
 			intList.add(i);
 		}
-		System.out.println(intList.get(6));
-		
+		System.out.println(intList.indexOf(6));
 	}
 }
