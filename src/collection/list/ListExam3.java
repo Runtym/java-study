@@ -5,11 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
-interface Test{
+interface Test2{
 	void a();
 	void b();
 }
-class Test1 implements Test{
+class Test1 implements Test2{
 
 	@Override
 	public void a() {
