@@ -23,10 +23,10 @@ class Dog {
 		this.age = age;
 	}
 
-	@Override
-	public String toString() {
-		return "Dog [name=" + name + ", age=" + age + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Dog [name=" + name + ", age=" + age + "]";
+//	}
 	
 }
 
@@ -42,7 +42,10 @@ public class DogList {
 			d.setAge(i);
 			dogList.add(d);
 		}
-		System.out.println(dogList);
+		for(Dog d : dogList) {
+			System.out.println(d.getName());
+			System.out.println(d.getAge());
+		}
 	}
 
 }
