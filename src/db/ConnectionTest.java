@@ -2,14 +2,10 @@ package db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.JDBCType;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class ConnectionTest {
 
@@ -17,34 +13,53 @@ public class ConnectionTest {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String id = "osfu";
 		String pwd = "12345678";
-		
+		Connection con = null;
 		try {
-			Connection con = DriverManager.getConnection(url, id, pwd);
+			Class.forName("oracle.jdbc.OracleDriver");
+			con = DriverManager.getConnection(url, id, pwd);
 			Statement stmt = con.createStatement();
-			String sql = "select * from board";
+			String sql = "select * from user_info2";
 			ResultSet rs = stmt.executeQuery(sql);
-			List<HashMap<String,String>> rowList = new ArrayList<>();
-			ResultSetMetaData rsmd = rs.getMetaData();
-			for(int i=0;i<rsmd.getColumnCount();i++) {
-				System.out.println(rsmd.getColumnLabel(i));
-			}
 			while(rs.next()){
-				HashMap<String,String> row = new HashMap<>();
-				row.put("num1",rs.getString("num1"));
-				row.put("num2",rs.getString("num2"));
-				row.put("sum",rs.getString("sum"));
-				row.put("title",rs.getString("title"));
-				row.put("reg_date",rs.getString("reg_date"));
-				row.put("content",rs.getString("content"));
-				rowList.add(row);
+				System.out.print(rs.getString("ui_num")+",");
+				System.out.print(rs.getString("ui_name")+",");
+				System.out.print(rs.getString("ui_age")+",");
 			}
-			
-			System.out.println("연결 성공!");
-			for(HashMap<String,String> row : rowList) {
-				System.out.println(row);
-			}
+			sql = "insert into user_info2(ui_num, ui_name,ui_age)";
+			sql += " values(?,?,?)";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, 1);
+			ps.setString(2, "test");
+			ps.setInt(3, 33);
+			ps.executeUpdate();
+
+			sql = "update user_info2 set ui_name=?,ui_age=?";
+			sql += " where ui_num=?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(2, 22);
+			ps.setString(1, "test");
+			ps.setInt(3, 1);
+			ps.executeUpdate();
+
+			sql = "delete user_info2 ";
+			sql += " where ui_num=?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, 1);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }
